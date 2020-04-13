@@ -1,6 +1,5 @@
 const handleDomo = (e) => {
 	e.preventDefault();
-	
 	$("#domoMessage").animate({width:'hide'},350);
 	
 	if($("#domoName").val() == '' || $("#domoAge").val() == '') {
@@ -15,6 +14,25 @@ const handleDomo = (e) => {
 	return false;
 };
 
+// probably wrong for jsx
+/*const deleteFunc = (e) => {
+	e.preventDefault();
+	let divChildren = e.target.parentNode.children;
+	let nameChild = divChildren[1].innerHTML;
+	
+	let nameChildText = nameChild.replace("Name: ", "");
+	let nameChildText2 = nameChildText.replace(/-->/g, "|");
+	let nameChildText3 = nameChildText2.replace(/<!/g, "|");
+	let nameChildArr = nameChildText3.split("|");
+	sendAjax('GET', '/getDomos', null, (data) => {
+		console.log(data.domos);
+		for(domo in data.domos) {
+			console.log(domo.name);
+		}
+	});
+	console.log(nameChildArr[6]);
+}*/
+
 const DomoForm = (props) => {
 	return (
 	<form id="domoForm" name="domoForm" 
@@ -27,6 +45,8 @@ const DomoForm = (props) => {
 	<input id="domoName" type="text" name="name" placeholder="Domo Name"/>
 	<label htmlFor="age">Age: </label>
 	<input id="domoAge" type="text" name="age" placeholder="Domo Age"/>
+	<label htmlFor="height">Height &#40; cm &#41; &#40; optional &#41;: </label>
+	<input id="domoHeight" type="text" name="height" placeholder="Domo Height"/>
 	<input type="hidden" name="_csrf" value={props.csrf}/>
 	<input className="makeDomoSubmit" type="submit" value="Make Domo" />
 	</form>
@@ -48,6 +68,7 @@ const DomoList = function(props) {
 				<img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
 				<h3 className="domoName"> Name: {domo.name} </h3>
 				<h3 className="domoAge"> Age: {domo.age} </h3>
+				<h3 className="domoHeight"> Height: {domo.height} cm</h3>
 			</div>
 		);
 	});
@@ -85,6 +106,9 @@ const getToken = () => {
 	});
 };
 
+
+
 $(document).ready(function() {
 	getToken();
 });
+

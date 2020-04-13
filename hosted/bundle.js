@@ -15,7 +15,26 @@ var handleDomo = function handleDomo(e) {
     loadDomosFromServer();
   });
   return false;
-};
+}; // probably wrong for jsx
+
+/*const deleteFunc = (e) => {
+	e.preventDefault();
+	let divChildren = e.target.parentNode.children;
+	let nameChild = divChildren[1].innerHTML;
+	
+	let nameChildText = nameChild.replace("Name: ", "");
+	let nameChildText2 = nameChildText.replace(/-->/g, "|");
+	let nameChildText3 = nameChildText2.replace(/<!/g, "|");
+	let nameChildArr = nameChildText3.split("|");
+	sendAjax('GET', '/getDomos', null, (data) => {
+		console.log(data.domos);
+		for(domo in data.domos) {
+			console.log(domo.name);
+		}
+	});
+	console.log(nameChildArr[6]);
+}*/
+
 
 var DomoForm = function DomoForm(props) {
   return (/*#__PURE__*/React.createElement("form", {
@@ -39,6 +58,13 @@ var DomoForm = function DomoForm(props) {
       type: "text",
       name: "age",
       placeholder: "Domo Age"
+    }), /*#__PURE__*/React.createElement("label", {
+      htmlFor: "height"
+    }, "Height ( cm ) ( optional ): "), /*#__PURE__*/React.createElement("input", {
+      id: "domoHeight",
+      type: "text",
+      name: "height",
+      placeholder: "Domo Height"
     }), /*#__PURE__*/React.createElement("input", {
       type: "hidden",
       name: "_csrf",
@@ -74,7 +100,9 @@ var DomoList = function DomoList(props) {
         className: "domoName"
       }, " Name: ", domo.name, " "), /*#__PURE__*/React.createElement("h3", {
         className: "domoAge"
-      }, " Age: ", domo.age, " "))
+      }, " Age: ", domo.age, " "), /*#__PURE__*/React.createElement("h3", {
+        className: "domoHeight"
+      }, " Height: ", domo.height, " cm"))
     );
   });
   return (/*#__PURE__*/React.createElement("div", {
